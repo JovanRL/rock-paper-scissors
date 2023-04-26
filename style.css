@@ -153,7 +153,6 @@ h3 {
 }
 
 
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -165,4 +164,9 @@ h3 {
   button {
     background-color: #f9f9f9;
   }
+  .user-score, .computer-score {
+    color: #f9f9f9
+  }
 }
+
+
