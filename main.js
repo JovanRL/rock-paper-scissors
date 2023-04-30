@@ -8,7 +8,7 @@ import ballIcon from './images/ball.png'
 import { getUserSelection, playRound } from './game.js'
 
 document.querySelector('#app').innerHTML = `
-  <header><p>Rock-Paper-Scissors</p></header>
+  <header><p>Rock Paper Scissors</p></header>
   <div>
       <div class="display">
       <div class="user">
@@ -28,12 +28,12 @@ document.querySelector('#app').innerHTML = `
       <img src="${scissors}" class="icon scissors-option option" alt="scissors" />
     </div>
     <div class="score">
-      <div class="user-score"">User score: 0</div>
-      <div class="computer-score"">Computer score: 0</div>
+      <div class="user-score">User score: 0</div>
+      <div class="computer-score">Computer score: 0</div>
     </div>
   </div>
 `;
 
 const option = Array.from(document.getElementsByClassName('option'));
 
-playRound(getUserSelection(option));
+getUserSelection(option);
