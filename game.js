@@ -4,35 +4,48 @@ import scissorsRight from './images/scissors-right.png'
 import scissorsLeft from './images/scissors-left.png'
 import clappingHands from './images/clapping-hands.png'
 import thumbsDown from './images/thumbs-down.png'
+import ball from './images/ball.png'
+
+
+const result = document.querySelector('.result');
+const userScoreText = document.querySelector('.user-score');
+const computerScoreText = document.querySelector('.computer-score');
+const computerSelectedOption = document.querySelector('.computer-selected-option');
+const userSelectedOption = document.querySelector('.user-selected-option');
+const userSelection = Array.from(document.getElementsByClassName('option'));
+const playAgainBtn = document.querySelector('.play-again-btn');
+const modalText = document.querySelector('.modalText');
+const modalImage = document.querySelector('.modalImage');
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+
+playAgainBtn.addEventListener("click", () => {resetGame()});
 
 let userScore = 0;
 let computerScore = 0;
 
-export const getUserSelection = option => {
+const getUserSelection = option => {
   option.forEach(element => {
     element.addEventListener('click', () => {
-      playRound(element.alt);
+      playRound(element.alt, getComputerSelection());
     })
   });
 };
+
+getUserSelection(userSelection);
 
 const randomChoice = (arr) => {
   return arr[Math.floor(arr.length * Math.random())];
 };
 
-export const getComputerSelection = () => {
+const getComputerSelection = () => {
   const options = ['rock', 'paper', 'scissors'];
   return randomChoice(options);
 };
 
 
-export const playRound = (userSelection) => {
-  const computerSelection = getComputerSelection();
-  const result = document.querySelector('.result');
-  const userScoreText = document.querySelector('.user-score');
-  const computerScoreText = document.querySelector('.computer-score');
-  const computerSelectedOption = document.querySelector('.computer-selected-option');
-  const userSelectedOption = document.querySelector('.user-selected-option');
+
+const playRound = (userSelection, computerSelection) => {
 
   const roundResult = {
     rock: {
@@ -63,46 +76,35 @@ export const playRound = (userSelection) => {
   checkScore();
 };
 
+const resetGame = () => {
+  userScore = 0;
+  computerScore = 0;
+  result.innerText = "Pick an option!";
+  userScoreText.innerText = `User score: ${userScore}`;
+  computerScoreText.innerText = `Computer score: ${computerScore}`;
+  userSelectedOption.src = `${ball}`;
+  computerSelectedOption.src = `${ball}`;
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+};
+
 const checkScore = () => {
-  let modalText = '';
-  let modalImage = '';
-  let finishedGame = false;
 
   if (userScore == 5) {
-    modalText = "You won!";
-    modalImage = clappingHands;
-    finishedGame = true;
+    modalText.innerText = "You won the game!";
+    modalImage.src = `${clappingHands}`;
+    openModal();
   }
   if (computerScore == 5) {
-    modalText = "You lost!";
-    modalImage = thumbsDown;
-    finishedGame = true;
-  }
-
-  if (finishedGame) {
-    document.querySelector('#app').innerHTML += `
-    <dialog class="modal">
-      <div class="flex">
-      <div>
-          <h3>${modalText}</h3>
-        </div>
-        <img src="${modalImage}" width="50px" height="50px" alt="user" />
-      </div>
-      
-
-      <button class="btn-play-again">Play again</button>
-    </dialog>
-    `;
-
-    const modal = document.querySelector(".modal");
-    const playAgainBtn = document.querySelector(".btn-play-again");
-
-    const openModal = function () {
-      modal.showModal();
-    };
-
+    modalText.innerText = "You lost the game!";
+    modalImage.src = `${thumbsDown}`;
     openModal();
-
-    playAgainBtn.addEventListener("click", () => { document.location.reload() });
   }
+
+  
 };
+
+function openModal() {
+  modal.classList.add('active');
+  overlay.classList.add('active');
+}
