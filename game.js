@@ -50,16 +50,16 @@ const playRound = (userSelection, computerSelection) => {
   const roundResult = {
     rock: {
       rock: ["It's a tie", `${rock}`, `${rock}`],
-      paper: ["You loose", `${rock}`, `${paper}`],
+      paper: ["You lose", `${rock}`, `${paper}`],
       scissors: ["You win", `${rock}`, `${scissorsLeft}`]
     },
     paper: {
       rock: ["You win", `${paper}`, `${rock}`],
       paper: ["It's a tie", `${paper}`, `${paper}`],
-      scissors: ["You loose", `${paper}`, `${scissorsLeft}`]
+      scissors: ["You lose", `${paper}`, `${scissorsLeft}`]
     },
     scissors: {
-      rock: ["You loose", `${scissorsRight}`, `${rock}`],
+      rock: ["You lose", `${scissorsRight}`, `${rock}`],
       paper: ["You win", `${scissorsRight}`, `${paper}`],
       scissors: ["It's a tie", `${scissorsRight}`, `${scissorsLeft}`]
     }
@@ -69,7 +69,7 @@ const playRound = (userSelection, computerSelection) => {
 
   if (result.innerText === "You win") {
     userScoreText.innerText = `User score: ${++userScore}`;
-  } else if (result.innerText === "You loose") {
+  } else if (result.innerText === "You lose") {
     computerScoreText.innerText = `Computer score: ${++computerScore}`;
   }
 
